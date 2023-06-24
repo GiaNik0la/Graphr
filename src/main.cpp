@@ -128,25 +128,11 @@ int main(void) {
                 if (isNode && i != first) {
                     nodes.at(i).neighbors.insert(first);
                     nodes.at(first).neighbors.insert(i);
+                    path = ShortestPath(0, nodes.size() - 1, nodes);
                     break;
                 }
                 i++;
             }
-        }
-
-        if (IsKeyPressed(KEY_SPACE)) {
-            int i = 0;
-            for (auto e: nodes) {
-                bool isNode = GetMouseX() < e.x + 30 &&
-                              GetMouseX() > e.x &&
-                              GetMouseY() < e.y + 30 &&
-                              GetMouseY() > e.y;
-                if (isNode) {
-                    break;
-                }
-                i++;
-            }
-            path = ShortestPath(0, i, nodes);
         }
 
         BeginDrawing();
