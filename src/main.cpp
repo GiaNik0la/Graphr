@@ -66,6 +66,15 @@ vector<int> ShortestPath(int s, int e, vector<Node> Q) {
     return Reconstruct(s, e, prev, Q);
 }
 
+bool CheckObInVec(vector<int> p, int s) {
+    for (int i : p) {
+        if (i == s) {
+            return true;
+        }
+    }
+    return false;
+}
+
 vector<int> path;
 
 int main(void) {
@@ -147,12 +156,12 @@ int main(void) {
                 DrawText(to_string(i).c_str(), nodes.at(i).x, nodes.at(i).y, 30, BLUE);
                 set<int> neig = nodes.at(i).neighbors;
                 for (auto e: nodes.at(i).neighbors) {
-                    DrawLine(nodes.at(i).x, nodes.at(i).y, nodes.at(e).x, nodes.at(e).y, RAYWHITE);
+                    if(CheckObInVec(path, i) && CheckObInVec(path, e)) {
+                        DrawLine(nodes.at(i).x, nodes.at(i).y, nodes.at(e).x, nodes.at(e).y, GREEN);
+                    } else {
+                        DrawLine(nodes.at(i).x, nodes.at(i).y, nodes.at(e).x, nodes.at(e).y, RAYWHITE);
+                    }
                 }
-            }
-
-            for (unsigned int i = 0; i < path.size(); i++) {
-                DrawText(to_string(path.at(i)).c_str(), 30, i*30, 30, RAYWHITE);
             }
 
         EndDrawing();
